@@ -3,6 +3,7 @@ const helmet = require('helmet')
 module.exports = async (expressApp) => {
   expressApp.disable('x-powered-by')
   expressApp.use(helmet({
+    frameguard: true,
     referrerPolicy: { 
       policy: 'same-origin'
     },
