@@ -1,6 +1,6 @@
-// const log = require('@src/handler/log')('app:payload:get')
-const getPayloadData = require('@api/v1/internal/payload-data')
-const formatPayloadData = require('@api/v1/internal/payload-data-formatter')
+// const log = require('~src/handler/log')('app:payload:get')
+const getPayloadData = require('~api/v1/internal/payload-data')
+const formatPayloadData = require('~api/v1/internal/payload-data-formatter')
 
 module.exports = async (req, res) => {
   if (typeof req.params.payloads_external_meta__meta_string !== 'undefined') {

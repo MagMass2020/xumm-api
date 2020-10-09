@@ -1,4 +1,4 @@
-const resolver = require('@api/v1/internal/handle-resolve')
+const resolver = require('~api/v1/internal/handle-resolve')
 
 /**
  * loadtest -n 2000 -c 100 \

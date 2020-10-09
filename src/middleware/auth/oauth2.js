@@ -1,4 +1,4 @@
-const log = require('@src/handler/log')('app:oauth2')
+const log = require('~src/handler/log')('app:oauth2')
 
 module.exports = async (expressApp, req, res) => {
   log('<< API: PLATFORM OAUTH2 MIDDLEWARE >>')

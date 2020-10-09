@@ -1,10 +1,10 @@
 const codec = require('ripple-binary-codec')
 const accountlib = require('xrpl-accountlib')
-const knownAccount = require('@api/v1/internal/known-account-hydrate')
-const resolveAccount = require('@api/v1/internal/known-account-resolve')
-const accountAdvisory = require('@api/v1/internal/advisory')
-const log = require('@src/handler/log')('app:payload:post')
-const logChild = require('@src/handler/log')('app:payload:post:child')
+const knownAccount = require('~api/v1/internal/known-account-hydrate')
+const resolveAccount = require('~api/v1/internal/known-account-resolve')
+const accountAdvisory = require('~api/v1/internal/advisory')
+const log = require('~src/handler/log')('app:payload:post')
+const logChild = require('~src/handler/log')('app:payload:post:child')
 const { fork } = require('child_process')
 
 module.exports = async (req, res) => {

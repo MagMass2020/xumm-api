@@ -38,7 +38,7 @@ async function start () {
   log('Loading modules') 
   for (let i = 0; i<middleware.length; i++) {
     log(` - ${middleware[i].type}: ${middleware[i].module}`)
-    await require(`@src/${middleware[i].type}/${middleware[i].module}`)(app)
+    await require(`~src/${middleware[i].type}/${middleware[i].module}`)(app)
   }
   log('Modules loaded')
 

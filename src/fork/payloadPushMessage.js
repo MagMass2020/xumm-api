@@ -1,5 +1,5 @@
 const fetch = require('node-fetch')
-const translations = require('@src/global/translations')
+const translations = require('~src/global/translations')
 const options = {
   module_name: 'payloadPushMessage',
   process_timeout: 5

@@ -1,6 +1,6 @@
-const log = require('@src/handler/log')('app:payid')
+const log = require('~src/handler/log')('app:payid')
 const xTagged = require('xrpl-tagged-address-codec')
-const userProfile = require('@src/api/v1/internal/user-profile-data')
+const userProfile = require('~src/api/v1/internal/user-profile-data')
 
 const express = require('express')
 const router = express.Router()

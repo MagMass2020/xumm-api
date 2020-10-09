@@ -1,5 +1,5 @@
 const fetch = require('node-fetch')
-const log = require('@src/handler/log')('app:known-account-hydrate')
+const log = require('~src/handler/log')('app:known-account-hydrate')
 
 const recordMaxDays = 3
 const recordMaxDaysUnknown = 1

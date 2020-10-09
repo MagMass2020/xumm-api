@@ -1,4 +1,4 @@
-const log = require('@src/handler/log')('app:xpring-metric-reporter:middleware')
+const log = require('~src/handler/log')('app:xpring-metric-reporter:middleware')
 const {Counter, Gauge, Pushgateway, Registry} = require('prom-client')
 
 const payIdGaugeRegistry = new Registry()

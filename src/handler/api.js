@@ -1,4 +1,4 @@
-const log = require('@src/handler/log')('app:api')
+const log = require('~src/handler/log')('app:api')
 
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -274,7 +274,7 @@ module.exports = async function (expressApp) {
             } else {
               next()
             }
-          } ], require(`@api/${apiVersion}/${apiType}/${route.module || route.path}`))
+          } ], require(`~api/${apiVersion}/${apiType}/${route.module || route.path}`))
         })
       })
     })

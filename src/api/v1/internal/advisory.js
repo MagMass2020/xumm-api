@@ -1,6 +1,6 @@
 const fetch = require('node-fetch')
-const log = require('@src/handler/log')('app:advisory')
-const getConfig = require('@src/middleware/config')
+const log = require('~src/handler/log')('app:advisory')
+const getConfig = require('~src/middleware/config')
 
 const ttlSeconds = 60 * 15 * 4 // Update every 15 minutes * 4 = 60 min = 1 hour
 

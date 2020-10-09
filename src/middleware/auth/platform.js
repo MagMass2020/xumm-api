@@ -1,5 +1,5 @@
 const uuid = require('uuid/v4')
-const log = require('@src/handler/log')('app:platform')
+const log = require('~src/handler/log')('app:platform')
 const crypto = require('crypto')
 
 module.exports = (expressApp, req, res, apiDetails) => {

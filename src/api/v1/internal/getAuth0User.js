@@ -1,5 +1,5 @@
 const fetch = require('node-fetch')
-// const log = require('@src/handler/log')('app:auth0')
+// const log = require('~src/handler/log')('app:auth0')
 
 module.exports = async (config, user) => {
   const getAuth0TokenCall = await fetch('https://xumm.eu.auth0.com/oauth/token', {

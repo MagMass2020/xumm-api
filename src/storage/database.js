@@ -1,4 +1,4 @@
-const log = require('@src/handler/log')('app:db')
+const log = require('~src/handler/log')('app:db')
 const mysql = require('mysql')
 
 module.exports = (app) => {

@@ -1,4 +1,4 @@
-const log = require('@src/handler/log')('app:liqbounds')
+const log = require('~src/handler/log')('app:liqbounds')
 
 module.exports = async (req, res) => {
   const issuer = req.params.issuer || ''

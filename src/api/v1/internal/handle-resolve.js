@@ -1,6 +1,6 @@
 const fetch = require('node-fetch')
-const log = require('@src/handler/log')('app:handle-resolve')
-const knownAccount = require('@api/v1/internal/known-account-hydrate')
+const log = require('~src/handler/log')('app:handle-resolve')
+const knownAccount = require('~api/v1/internal/known-account-hydrate')
 const utf8 = require('utf8')
 const taggedAddressCodec = require('xrpl-tagged-address-codec')
 
@@ -9,7 +9,7 @@ const URL = require('url')
 const isValidDomain = require('is-valid-domain')
 const ip = require('ip')
 const dns = require('dns')
-const payIdProfile = require('@src/api/v1/internal/user-profile-data')
+const payIdProfile = require('~src/api/v1/internal/user-profile-data')
 
 const cacheSeconds = 60 * 15 // 15 minutes
 
@@ -48,7 +48,7 @@ const is = {
       return false
     }
 
-    const parts = query.split('@')
+    const parts = query.split('~')
     if (parts[0].length > 64) {
       return false
     }
@@ -614,7 +614,7 @@ const resolver = {
       }
     }
 
-    const cacheKey = query + '@' + net
+    const cacheKey = query + '~' + net
 
     const now = Math.round(new Date() / 1000)
     if (typeof this.cache[cacheKey] === 'undefined' || this.cache[cacheKey].cached < now - cacheSeconds) {

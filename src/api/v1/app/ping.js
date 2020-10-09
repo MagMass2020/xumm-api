@@ -1,5 +1,5 @@
-const log = require('@src/handler/log')('app:ping')
-const getBadgeCount = require('@api/v1/internal/get-user-badge-count')
+const log = require('~src/handler/log')('app:ping')
+const getBadgeCount = require('~api/v1/internal/get-user-badge-count')
 
 module.exports = async (req, res) => {
   if (typeof req.body === 'object' && req.body !== null) {

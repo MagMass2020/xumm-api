@@ -62,7 +62,8 @@
     "utf8": "^3.0.0",
     "uuid": "^3.4.0",
     "xrpl-accountlib": "^0.3.7",
-    "xrpl-tagged-address-codec": "^0.2.1"
+    "xrpl-tagged-address-codec": "^0.2.1",
+    "xrpl-txdata": "^1.0.3"
   },
   "jest": {
     "roots": [
@@ -111,8 +112,8 @@
   },
   "_moduleAliasIgnoreWarning": true,
   "_moduleAliases": {
-    "@src": "src",
-    "@web": "src/web",
-    "@api": "src/api"
+    "~src": "src",
+    "~web": "src/web",
+    "~api": "src/api"
   }
 }

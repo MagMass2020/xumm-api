@@ -1,4 +1,4 @@
-const log = require('@src/handler/log')('app:known-account-resolve')
+const log = require('~src/handler/log')('app:known-account-resolve')
 
 module.exports = (db, account, _options) => {
   const options = {

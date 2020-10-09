@@ -1,5 +1,5 @@
-const log = require('@src/handler/log')('app:redis-pubsub:pub')
-const logSub = require('@src/handler/log')('app:redis-pubsub:sub')
+const log = require('~src/handler/log')('app:redis-pubsub:pub')
+const logSub = require('~src/handler/log')('app:redis-pubsub:sub')
 const ioredis = require('ioredis')
 
 module.exports = async function (expressApp) {

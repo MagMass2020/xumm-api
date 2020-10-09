@@ -1,7 +1,7 @@
 // const Levenshtein = require('levenshtein')
 const stringSimilarity = require('string-similarity')
 const humanize = require('humanize-string')
-const log = require('@src/handler/log')('app:userprofile')
+const log = require('~src/handler/log')('app:userprofile')
 const xTagged = require('xrpl-tagged-address-codec')
 
 // TODO: Tests

@@ -1,4 +1,4 @@
-const log = require('@src/handler/log')('app:jwt-tokens')
+const log = require('~src/handler/log')('app:jwt-tokens')
 
 module.exports = async (req, res) => {
   try {

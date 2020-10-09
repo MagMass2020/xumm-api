@@ -1,5 +1,5 @@
-const log = require('@src/handler/log')('app:user-profile-page')
-const userProfile = require('@src/api/v1/internal/user-profile-data')
+const log = require('~src/handler/log')('app:user-profile-page')
+const userProfile = require('~src/api/v1/internal/user-profile-data')
 
 module.exports = async (params, expressApp, invoker) => {
   if (invoker !== 'web') {

@@ -1,4 +1,4 @@
-const log = require('@src/handler/log')('app:qr')
+const log = require('~src/handler/log')('app:qr')
 const nunjucks = require('nunjucks')
 const QRCode = require('qrcode-svg')
 

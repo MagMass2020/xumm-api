@@ -1,4 +1,4 @@
-const logws = require('@src/handler/log')('app:web:ws')
+const logws = require('~src/handler/log')('app:web:ws')
 const jwt = require('../middleware/auth/devconsole-jwt')
 
 const express = require('express')

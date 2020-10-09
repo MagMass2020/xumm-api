@@ -1,7 +1,7 @@
 const uuid = require('uuid/v4')
 const jwt = require('express-jwt')
 const jwksRsa = require('jwks-rsa')
-const log = require('@src/handler/log')('app:devconsole')
+const log = require('~src/handler/log')('app:devconsole')
 
 module.exports = async (expressApp, req, res, apiDetails) => {
   const call_uuidv4 = uuid()

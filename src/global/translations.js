@@ -1,5 +1,5 @@
 const fs = require('fs')
-const I18nFilter = require('@web/nunjucks_extensions/i18n')
+const I18nFilter = require('~web/nunjucks_extensions/i18n')
 
 const files = fs.readdirSync(__dirname + '/../../translations/')
 let translations = []

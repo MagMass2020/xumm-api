@@ -1,4 +1,4 @@
-const log = require('@src/handler/log')('app:console')
+const log = require('~src/handler/log')('app:console')
 
 module.exports = async (req, res) => {
   try {

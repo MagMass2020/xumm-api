@@ -1,4 +1,4 @@
-const log = require('@src/handler/log')('app:cli-logger')
+const log = require('~src/handler/log')('app:cli-logger')
 
 module.exports = async function (expressApp) {
   expressApp.use((req, res, next) => {

@@ -1,6 +1,6 @@
-const log = require('@src/handler/log')('app:web')
+const log = require('~src/handler/log')('app:web')
 
-const translations = require('@src/global/translations')
+const translations = require('~src/global/translations')
 const express = require('express')
 const nunjucks = require('nunjucks')
 const locale = require('express-locale')
@@ -12,10 +12,10 @@ const QrPng = require('./web-misc/qr-png')
 const QrJson = require('./web-misc/qr-json')
 const QrTxHashJson = require('./web-misc/hash-qr-array')
 
-const dbExtension = require('@web/nunjucks_extensions/db')
-const apiExtension = require('@web/nunjucks_extensions/api')
-const qrExtension = require('@web/nunjucks_extensions/qr')
-const I18nFilter = require('@web/nunjucks_extensions/i18n')
+const dbExtension = require('~web/nunjucks_extensions/db')
+const apiExtension = require('~web/nunjucks_extensions/api')
+const qrExtension = require('~web/nunjucks_extensions/qr')
+const I18nFilter = require('~web/nunjucks_extensions/i18n')
 
 module.exports = async function (expressApp) {
   expressApp.use(bodyParser.urlencoded({ extended: true }))

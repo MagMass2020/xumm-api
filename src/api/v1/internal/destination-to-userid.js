@@ -1,4 +1,4 @@
-const log = require('@src/handler/log')('app:destination-to-userid')
+const log = require('~src/handler/log')('app:destination-to-userid')
 
 module.exports = async (destination, db) => {
   try {

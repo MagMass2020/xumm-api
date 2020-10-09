@@ -1,4 +1,4 @@
-const log = require('@src/handler/log')('app:custom-storage')
+const log = require('~src/handler/log')('app:custom-storage')
 
 module.exports = async (req, res) => {
   const id = req.__auth.application.id || ''

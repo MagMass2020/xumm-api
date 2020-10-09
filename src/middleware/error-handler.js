@@ -1,5 +1,5 @@
 const uuid = require('uuid/v4')
-const log = require('@src/handler/log')('app:error-handler')
+const log = require('~src/handler/log')('app:error-handler')
 
 module.exports = async function (expressApp) {
   expressApp.use((error, req, res, next) => {

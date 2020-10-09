@@ -1,6 +1,6 @@
-const knownAccount = require('@api/v1/internal/known-account-hydrate')
+const knownAccount = require('~api/v1/internal/known-account-hydrate')
 const AddressCodec = require('ripple-address-codec')
-const log = require('@src/handler/log')('app:accountinfo')
+const log = require('~src/handler/log')('app:accountinfo')
 
 
 module.exports = async (req, res) => {

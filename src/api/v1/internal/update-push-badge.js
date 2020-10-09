@@ -1,10 +1,10 @@
-const log = require('@src/handler/log')('app:push-badge')
-const logChild = require('@src/handler/log')('app:push-badge:child')
+const log = require('~src/handler/log')('app:push-badge')
+const logChild = require('~src/handler/log')('app:push-badge:child')
 const { fork } = require('child_process')
 
-const getUserIdByDestination = require('@api/v1/internal/destination-to-userid')
-const getBadgeCount = require('@api/v1/internal/get-user-badge-count')
-const getUserDevices = require('@api/v1/internal/get-user-devices')
+const getUserIdByDestination = require('~api/v1/internal/destination-to-userid')
+const getBadgeCount = require('~api/v1/internal/get-user-badge-count')
+const getUserDevices = require('~api/v1/internal/get-user-devices')
 
 module.exports = async (destination, db, config) => {
   /**

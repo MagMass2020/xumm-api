@@ -1,4 +1,4 @@
-const log = require('@src/handler/log')('app:user-devices')
+const log = require('~src/handler/log')('app:user-devices')
 
 module.exports = async (userId, db, options) => {
   let additionalFields = ''

@@ -1,4 +1,4 @@
-const advisory = require('@api/v1/internal/advisory')
+const advisory = require('~api/v1/internal/advisory')
 
 /**
  * loadtest -n 2000 -c 100 \

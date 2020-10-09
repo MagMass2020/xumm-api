@@ -1,6 +1,6 @@
-// const log = require('@src/handler/log')('app:payload-api')
-const getPayloadData = require('@api/v1/internal/payload-data')
-const formatPayloadData = require('@api/v1/internal/payload-data-formatter')
+// const log = require('~src/handler/log')('app:payload-api')
+const getPayloadData = require('~api/v1/internal/payload-data')
+const formatPayloadData = require('~api/v1/internal/payload-data-formatter')
 // const uuid = require('uuid/v4')
 
 module.exports = async (req, res) => {

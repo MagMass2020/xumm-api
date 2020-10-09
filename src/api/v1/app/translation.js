@@ -1,5 +1,5 @@
 const fetch = require('node-fetch')
-const getUserDevices = require('@api/v1/internal/get-user-devices')
+const getUserDevices = require('~api/v1/internal/get-user-devices')
 
 module.exports = async (req, res) => {
   try {

@@ -1,4 +1,4 @@
-const log = require('@src/handler/log')('app:payload-data')
+const log = require('~src/handler/log')('app:payload-data')
 const failOnDisabled = false
 
 module.exports = async (uuid, expressApp, invoker) => {

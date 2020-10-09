@@ -1,13 +1,13 @@
-// const log = require('@src/handler/log')('app:payload-api')
-const logChild = require('@src/handler/log')('app:payload-api:child')
-const getPayloadData = require('@api/v1/internal/payload-data')
-const formatPayloadData = require('@api/v1/internal/payload-data-formatter')
+// const log = require('~src/handler/log')('app:payload-api')
+const logChild = require('~src/handler/log')('app:payload-api:child')
+const getPayloadData = require('~api/v1/internal/payload-data')
+const formatPayloadData = require('~api/v1/internal/payload-data-formatter')
 const codec = require('ripple-binary-codec')
 const hashes = require('ripple-hashes')
 const addressCodec = require('ripple-address-codec')
 const uuid = require('uuid/v4')
 const { fork } = require('child_process')
-const updatePushBadge = require('@api/v1/internal/update-push-badge')
+const updatePushBadge = require('~api/v1/internal/update-push-badge')
 const crypto = require('crypto')
 
 module.exports = async (req, res) => {
