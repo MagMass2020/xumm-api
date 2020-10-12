@@ -47,11 +47,11 @@ const main = async (data) => {
     log(`Push notification CALL [ ${options.module_name} ] response text:`, responseText.slice(0, 500))
   } catch(e) {
     log(`${e.message} @ ${options.module_name} [ payload(${data.payload.uuidv4 || ''}) ]`)
-    process.exit(1)
+    setTimeout(() => process.exit(1), 500)
   }
 
   clearTimeout(timeout)
-  process.exit(0)
+  setTimeout(() => process.exit(0), 500)
 }
 
 /**

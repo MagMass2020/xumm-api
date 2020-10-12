@@ -33,11 +33,11 @@ const main = async (data) => {
     log(`Webhook [ ${data.meta.payload_uuidv4} ] response text:`, responseText.slice(0, 100))
   } catch(e) {
     log(`${e.message} @ ${data.meta.payload_uuidv4} [ payload(${data.meta.payload_uuidv4}) ]`)
-    process.exit(1)
+    setTimeout(() => process.exit(1), 500)
   }
 
   clearTimeout(timeout)
-  process.exit(0)
+  setTimeout(() => process.exit(0), 500)
 }
 
 /**
