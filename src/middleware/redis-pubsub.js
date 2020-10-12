@@ -2,8 +2,10 @@ const log = require('~src/handler/log')('app:redis-pubsub:pub')
 const logSub = require('~src/handler/log')('app:redis-pubsub:sub')
 const ioredis = require('ioredis')
 
-module.exports = async function (expressApp) {
-  log('Redis PubSub=>PUBLISH connection attempt to', expressApp.config.redis)
+module.exports = async function (expressApp, infoLogs) {
+  const logInfo = typeof infoLogs === 'boolean' ? infoLogs : true
+
+  if (logInfo) log('Redis PubSub=>PUBLISH connection attempt to', expressApp.config.redis)
   const redis = new ioredis({
     host: expressApp.config.redis.host,
     port: expressApp.config.redis.port,
@@ -12,8 +14,8 @@ module.exports = async function (expressApp) {
     // Keep on trying to reconnect
     maxRetriesPerRequest: null
   })
-  redis.on('connect', () => { log('Redis PubSub=>PUBLISH Connected') })
-  redis.on('ready', () => { log('Redis PubSub=>PUBLISH Ready') })
+  redis.on('connect', () => { if (logInfo) log('Redis PubSub=>PUBLISH Connected') })
+  redis.on('ready', () => { if (logInfo) log('Redis PubSub=>PUBLISH Ready') })
   // redis.on('close', () => { log('Redis Disconnected') })
   redis.on('error', e => {
     log('Redis PubSub=>PUBLISH error', e.message)
@@ -53,7 +55,7 @@ module.exports = async function (expressApp) {
         subRedis.unsubscribe(channel).then(() => {
           try {
             subRedis.disconnect()
-            log('Redis DISCONNECTED')
+            if (logInfo) log('Redis DISCONNECTED')
           } catch (e) {
             log('Redis DISCONNECT error', e.message)
           }
