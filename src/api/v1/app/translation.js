@@ -6,10 +6,10 @@ module.exports = async (req, res) => {
     // TODO: get actual translations
     let trl = {}
 
-    if (req.params.payloads__payload_id.match(/^[0-9]/)) {
+    if (req.params.translation_uuid.match(/^[0-9]/)) {
       let locale = 'en'
-      if (req.params.payloads__payload_id.slice(0, 1) === '1') locale = 'ja'
-      if (req.params.payloads__payload_id.slice(0, 1) === '2') locale = 'es'
+      if (req.params.translation_uuid.slice(0, 1) === '1') locale = 'ja'
+      if (req.params.translation_uuid.slice(0, 1) === '2') locale = 'es'
 
       const call = await fetch(`https://raw.githubusercontent.com/XRPL-Labs/XUMM-App/develop/src/locale/${locale}.json`)
       trl = await call.json()
@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
       meta: {
         language: '??_??',
         version: (new Date()).getTime(),
-        token: req.params.payloads__payload_id,
+        token: req.params.translation_uuid,
         valid: Object.keys(trl).length > 0
       },
       translation: trl
