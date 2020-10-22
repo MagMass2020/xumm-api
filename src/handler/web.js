@@ -11,6 +11,7 @@ const bodyParser = require('body-parser')
 const QrPng = require('./web-misc/qr-png')
 const QrJson = require('./web-misc/qr-json')
 const QrTxHashJson = require('./web-misc/hash-qr-array')
+const HashIconPng = require('./web-misc/hashicon-png')
 
 const dbExtension = require('~web/nunjucks_extensions/db')
 const apiExtension = require('~web/nunjucks_extensions/api')
@@ -156,6 +157,7 @@ module.exports = async function (expressApp) {
   router.get('/sign/:uuid([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}):level(_[mqh])?.png', QrPng)
   router.get('/tx/:hash([0-9a-fA-F]{64}).json', QrTxHashJson)
   router.get('/sign/:uuid([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}):level(_[mqh])?.json', QrJson)
+  router.get('/avatar/:account(r[a-zA-Z0-9]{18,}):size(_[0-9]{1,3})?.png', HashIconPng)
 
   // WEBROUTER WILDCARD - FALLBACK
   router.all('*', function(req, res){
