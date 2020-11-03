@@ -1,0 +1,35 @@
+<p>
+  This (minor) update contains some improvements and addresses some minor bugs.
+</p>
+
+<h4>Added &amp; improved</h4>
+<ul>
+  <li><b>Major makeover of the Event list, now showing account icons and active Ledger Objects (like Escrows and Checks) on dedicated tabs, with appropriate actions in the transaction detail screen.</b></li>
+  <li>Unactivated accounts will now show a button at the home screen to show the QR code for sending initial funding.</li>
+  <li>Added support for alternate derivation paths when importing Mnemonic based accounts.</li>
+  <li>QR Scanner can now be used to scan just the Destination Tag (when sending) as well.</li>
+  <li>When cancelling a Check, the Check destination account will now be displayed in the Sign Request screen.</li>
+  <li>XRP balance (home screen) now displays thousands separators.</li>
+  <li>Added support for opening Explorer links with alternative browsers on iOS.</li>
+  <li>XUMM shows In-App update warnings from now on, when there's a new version available in the App/Play store.</li>
+</ul>
+
+<h4>Changed</h4>
+<ul>
+  <li>Android: the Settings panel now allows you to temporary enable taking screenshots and screencasts.</li>
+  <li>The device Clipboard will no longer be read from the home screen, instead the clipboard can be read opt-in from the Scan (Camera) dialog.</li>
+  <li>Improved some internals resulting in a much faster cold app start on Android and iOS.</li>
+  <li>Incoming Trust Lines (for issuers) in the Event list now explicitly show the Trust Line is incoming.</li>
+  <li>Payments by 3rd parties partially consuming your DEX offer are now listed in the list as "Exchanged assets" instead of Payments (which was confusing, as the payment is from and to 3rd parties, but consuming your DEX offer).</li>
+</ul>
+
+<h4>Fixed</h4>
+<ul>
+  <li>iOS: When long-tapping to paste in the Destination Tag field (when sending funds) the input would hide below the keyboard.</li>
+  <li>A bug preventing cancelling Check transactions to be signed is now fixed. You can now cancel Checks.</li>
+  <li>Fixed a bug that would calculate 5 XRP reserve for unused (limit: 0) Trust Lines.</li>
+  <li>Fixed a bug causing some Android devices not to show the account r-addres on the home screen.</li>
+  <li>Fixed a bug on causing some users being unable to store a Pin code during the onboarding, on some Android 7 / Android 7.1 devices.</li>
+  <li>Fixed a bug that (in rare occasions) could crash the app on Android.</li>
+  <li>Fixed a bug that would crash the app when scanning a PayID when adding a contact to the address book.</li>
+</ul>
