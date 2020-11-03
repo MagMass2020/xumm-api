@@ -5,6 +5,7 @@ module.exports = async (req, res) => {
     const data = await req.db(`
       SELECT
         payloads.*,
+        IF (payloads.payload_app_opencount > 0, IF(payloads.payload_web_opencount > 0, 0, 1), NULL) as _opened_by_deeplink,
         IF(payloads.payload_expiration > CURRENT_TIMESTAMP, 0, 1) as __payload_expired,
         payloads.call_uuidv4_txt as call_uuidv4,
         UNIX_TIMESTAMP(payloads.payload_created) as payload_created_ts,

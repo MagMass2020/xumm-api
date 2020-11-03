@@ -35,6 +35,7 @@ module.exports = async (uuid, expressApp, invoker) => {
         IF (payloads.payload_expiration >= FROM_UNIXTIME(:payload_expiration), 0, 1) as _expired,
         IF (payloads.token_id IS NOT NULL, 1, 0) as _pushed,
         IF (payloads.payload_app_opencount > 0, 1, 0) as _app_opened,
+        IF (payloads.payload_app_opencount > 0, IF(payloads.payload_web_opencount > 0, 0, 1), NULL) as _opened_by_deeplink,
         DATE_FORMAT(payloads.payload_created, '%Y-%m-%dT%H:%i:%sZ') as payload_created_at,
         DATE_FORMAT(payloads.payload_expiration, '%Y-%m-%dT%H:%i:%sZ') as payload_expires_at,
         payloads.payload_return_url_app,

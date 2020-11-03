@@ -428,6 +428,7 @@ module.exports = async (req, res) => {
 
             req.app.redis.publish(`sign:${req.params.payloads__payload_id}`, Object.assign({}, {
               ...response,
+              opened_by_deeplink: Number.isInteger(payload._opened_by_deeplink) ? Boolean(payload._opened_by_deeplink) : payload._opened_by_deeplink,
               custom_meta: {
                 identifier: payload.meta_custom_identifier,
                 blob: meta_custom_blob,
@@ -510,6 +511,7 @@ module.exports = async (req, res) => {
             const callbackUrl = appDetails[0].application_webhookurl
             if (callbackUrl.match(/^https:/) || callbackUrl.match(/^http:/)) {
               let custom_meta_blob = payload.meta_custom_blob
+
               if (typeof custom_meta_blob === 'string') {
                 try {
                   custom_meta_blob = JSON.parse(custom_meta_blob)
@@ -517,11 +519,13 @@ module.exports = async (req, res) => {
                   custom_meta_blob = null
                 }
               }
+
               const callbackData = {
                 meta: {
                   url: callbackUrl,
                   application_uuidv4: payload.application_uuidv4,
                   payload_uuidv4: req.params.payloads__payload_id,
+                  opened_by_deeplink: Number.isInteger(payload._opened_by_deeplink) ? Boolean(payload._opened_by_deeplink) : payload._opened_by_deeplink
                 },
                 custom_meta: {
                   identifier: payload.meta_custom_identifier,
