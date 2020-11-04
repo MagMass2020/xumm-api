@@ -157,7 +157,7 @@ module.exports = async function (expressApp) {
   router.get('/sign/:uuid([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}):level(_[mqh])?.png', QrPng)
   router.get('/tx/:hash([0-9a-fA-F]{64}).json', QrTxHashJson)
   router.get('/sign/:uuid([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}):level(_[mqh])?.json', QrJson)
-  router.get('/avatar/:account(r[a-zA-Z0-9]{18,}):size(_[0-9]{1,3})?.png', HashIconPng)
+  router.get('/avatar/:account(r[a-zA-Z0-9]{18,}):size(_[0-9]{1,3})?:padding(_[0-9]{1,3})?.png', HashIconPng)
 
   // WEBROUTER WILDCARD - FALLBACK
   router.all('*', function(req, res){
