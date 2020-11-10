@@ -153,6 +153,11 @@ module.exports = async function (expressApp) {
     return res.render('about.html')
   })
 
+  router.get('/tangem', (req, res, next) => {
+    // throw new Error("BROKEN")
+    return res.render('tangem.html')
+  })
+
   router.get('/sign/:uuid([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}):qr(/qr)?:deeplink(/deeplink)?', handleSignPage)
   router.get('/sign/:uuid([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}):level(_[mqh])?.png', QrPng)
   router.get('/tx/:hash([0-9a-fA-F]{64}).json', QrTxHashJson)

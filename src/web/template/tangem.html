@@ -1,0 +1,43 @@
+{% extends "index.html" %}
+
+{% block button %}
+  <a target="_blank" href="https://shop.tangem.com/products/tangem-for-xumm" class="shadow-sm btn border-2 border-primary btn-info btn-sm">
+    Get a XUMM+Tangem card
+    <i class="fas fa-shopping-cart"></i>
+  </a>
+{% endblock %}
+
+{% block main %}
+  <section name="app" class="bg-primary text-white py-5">
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+          <h2 class="h3 mb-4">Keep your keys extra safe: use XUMM + Tangem.</h2>
+          <p>Tangem cards let you hold your XRP in a sleek and stylish card you carry with you, maintaining self-custody and complete control. The embedded chip creates and holds your unique and uncopyable key within the card itself making it the most secure way to store your crypto.</p>
+        </div>
+        <div class="pt-2 col-12">
+          <h2 class="text-center h2 mb-4">Install the <b>xumm</b> app to use your Tangem card</h2>
+        </div>
+        <div class="d-none d-lg-block col-lg-2"></div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <a target="_blank" href="https://apps.apple.com/us/app/xumm/id1492302343?l=nl&ls=1" class="btn-block btn btn-outline-dark store btn-icon-text">
+            <i class="fab fa-apple btn-icon-prepend mdi-36px" aria-hidden="true"></i>
+            <span class="d-inline-block text-left">
+              <small class="font-weight-light d-block">Available on the</small>
+              App Store
+            </span>
+          </a>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <a target="_blank" href="https://play.google.com/apps/testing/com.xrpllabs.xumm" class="btn-block btn btn-outline-dark store btn-icon-text">
+            <i class="fab fa-google-play mdi-36px" aria-hidden="true"></i>
+            <span class="d-inline-block text-left">
+              <small class="font-weight-light d-block">Get it on</small>
+              Google Play
+            </span>
+          </a>
+        </div>
+    </div>
+  </section>
+{% endblock %}
