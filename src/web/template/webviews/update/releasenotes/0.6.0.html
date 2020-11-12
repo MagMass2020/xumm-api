@@ -12,6 +12,8 @@
   <li>XRP balance (home screen) now displays thousands separators.</li>
   <li>Added support for opening Explorer links with alternative browsers on iOS.</li>
   <li>XUMM shows In-App update warnings from now on, when there's a new version available in the App/Play store.</li>
+  <li>New "Transaction sent" (in case of successfully sent) confirmation screen, and the same confirmation screen for Sign requests &amp; manual payments.</li>
+  <li>Improved transaction search in the event list.</li>
 </ul>
 
 <h4>Changed</h4>
@@ -21,10 +23,13 @@
   <li>Improved some internals resulting in a much faster cold app start on Android and iOS.</li>
   <li>Incoming Trust Lines (for issuers) in the Event list now explicitly show the Trust Line is incoming.</li>
   <li>Payments by 3rd parties partially consuming your DEX offer are now listed in the list as "Exchanged assets" instead of Payments (which was confusing, as the payment is from and to 3rd parties, but consuming your DEX offer).</li>
+  <li>Account selection dropdown (Sign requests) is no longer a dropdown if there's only one account (read/write) to select.</li>
 </ul>
 
 <h4>Fixed</h4>
 <ul>
+  <li>Fixed a bug that may cause XUMM to display an error message at startup after migrating a backup (eg. new/replaced phone).</li>
+  <li>Fixed a bug where the Event list would stay white for Regular Key accounts after signing for another acount.</li>
   <li>iOS: When long-tapping to paste in the Destination Tag field (when sending funds) the input would hide below the keyboard.</li>
   <li>A bug preventing cancelling Check transactions to be signed is now fixed. You can now cancel Checks.</li>
   <li>Fixed a bug that would calculate 5 XRP reserve for unused (limit: 0) Trust Lines.</li>
