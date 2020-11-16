@@ -272,6 +272,7 @@ module.exports = async (req, res) => {
         pushToken = await req.db(`
           SELECT 
             devices.device_pushtoken,
+            devices.device_appLanguage,
             applications.application_name,
             tokens.token_id,
             (SELECT count(1) FROM payloads WHERE payloads.token_id = tokens.token_id AND payloads.payload_handler IS NULL AND payloads.payload_expiration > FROM_UNIXTIME(:token_expiration)) AS open_sign_requests
@@ -446,7 +447,8 @@ module.exports = async (req, res) => {
             },
             device: {
               pushtoken: r.device_pushtoken,
-              open_sign_requests: r.open_sign_requests + 1
+              open_sign_requests: r.open_sign_requests + 1,
+              language: r.device_appLanguage || 'en'
             },
             application: {
               name: r.application_name

@@ -33,7 +33,7 @@ const main = async (data) => {
 
     let body
     if (String(destination) !== '') {
-      body = translations.translate('en', 'PUSH_MSG_TXTYPE_TO_DEST', {
+      body = translations.translate(data.device.language || 'en', 'PUSH_MSG_TXTYPE_TO_DEST', {
         type: data.transaction.type,
         destination
       })
@@ -42,7 +42,7 @@ const main = async (data) => {
     }
 
     if (data.transaction.type.toLowerCase() === 'signin') {
-      body = translations.translate('en', 'PUSH_MSG_SIGNIN_REQ', {
+      body = translations.translate(data.device.language || 'en', 'PUSH_MSG_SIGNIN_REQ', {
         appname: data.application.name
       })
     }
@@ -54,7 +54,7 @@ const main = async (data) => {
         to: data.device.pushtoken,
         notification: {
           title: `${data.application.name}`,
-          subtitle: translations.translate('en', 'PUSH_MSG_SIGN_REQUEST'),
+          subtitle: translations.translate(data.device.language || 'en', 'PUSH_MSG_SIGN_REQUEST'),
           body,
           badge: data.device.open_sign_requests || 0,
           sound: 'default'
