@@ -9,12 +9,6 @@ const log = function () {
   process.send({ debug_log: arguments })
 }
 
-// TODO: Localize (now default EN) i18n
-
-/**
- * Code
- */
-
 const main = async (data) => {
   let timeout
 
