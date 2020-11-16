@@ -53,7 +53,11 @@ module.exports = async function (expressApp) {
 
     const errorRef = res.get('X-Call-Ref') || uuid()
     const code = parseInt(((e.code || '') + '').replace(/[^0-9]/g, ''))
-    log(`ERROR @ ${req.remoteAddress || req.ip} ${errorRef} - ${e.message} (${e.httpCode||'-'})`, req.config.__env === 'dev' ? e : undefined)
+    if (typeof e === 'object' && e !== null && typeof e.noLogging === 'boolean' && e.noLogging) {
+      // Don't log to error log, ignoge
+    } else {
+      log(`ERROR @ ${req.remoteAddress || req.ip} ${errorRef} - ${e.message} (${e.httpCode||'-'})`, req.config.__env === 'dev' ? e : undefined)
+    }
     res.status(typeof e.httpCode === 'undefined' || isNaN(parseInt(e.httpCode)) ? 400 : parseInt(e.httpCode)).json({
       error: {
         reference: errorRef,
