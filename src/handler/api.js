@@ -124,6 +124,13 @@ module.exports = async function (expressApp) {
       /**
        * App: custom auth, for our App
        */
+      internal: {
+        middleware: 'auth/internal',
+        routes: [
+          { method: 'post', path: 'push-tx' }
+        ],
+        errorHandler: errorHandler
+      },
       app: {
         middleware: 'auth/app',
         routes: [

@@ -1,6 +1,7 @@
 module.exports = {
   LANGUAGE_CODE: 'en',
   ERROR: `Error`,
+  X_RECEIVED: `__something__ received`,
   ERROR_404_BODY: `Sorry, the page you requested could not be found.`,
   ERROR_500_BODY: `Sorry, your request couldn't be processed at this moment.`,
   LIPSUM: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin maximus sem ante, sit amet semper mauris venenatis non. Fusce posuere, libero ut volutpat ornare, massa ipsum hendrerit ipsum, sed finibus ipsum augue a nisl. Etiam at tempus ante, sit amet tristique leo. Vestibulum lobortis nisl a volutpat rhoncus. Ut facilisis ante a iaculis sollicitudin. Ut consectetur magna at libero vulputate, id pulvinar dui rutrum. Etiam facilisis finibus tincidunt.`,
