@@ -5,7 +5,7 @@
     onlyMonitorSigning: {{ onlyMonitorSigning|default('false') }},
     stateOpenedBefore: {{ stateOpenedBefore|default('false') }},
     statePushedBefore: {{ statePushedBefore|default('false') }},
-    returnUrl: '{{ results.__formatted.meta.return_url_web|default('') }}'
+    returnUrl: {{ results.__formatted.meta.return_url_web|dump|safe }}
   }
 </script>
 
