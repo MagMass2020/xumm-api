@@ -7,11 +7,10 @@ module.exports = async (req, res) => {
   try {
     const fallbackCall = await fetch(`https://raw.githubusercontent.com/XRPL-Labs/XUMM-App/develop/src/locale/en.json`)
     const fallbackTranslation = await fallbackCall.json()
-    // log({fallbackTranslation})
 
-    const meta = {
-      language: '??_??'
-    }
+    log({translationPreview: req.params.translation_uuid})
+
+    const meta = {language: '??_??'}
     const translation = {}
 
     const call = await fetch(`http://translate.xumm.dev/json/get-translation/t:${req.params.translation_uuid}`, {
@@ -20,20 +19,34 @@ module.exports = async (req, res) => {
       }
     })
     const translationData = await call.json()
-    if (typeof translationData === 'object' && translationData !== null && typeof translationData.data !== 'undefined') {
+    if (
+      typeof translationData === 'object'
+      && translationData !== null
+      && typeof translationData.data !== 'undefined'
+      && translationData.data !== null
+    ) {
       meta.language = translationData.data.language
 
       const matchingSignRequest = await req.db(`
-        SELECT payload_id FROM payloads WHERE
+        SELECT
+          payloads.payload_id,
+          devices.device_id
+        FROM
+          payloads
+        JOIN
+          devices ON (
+            devices.device_id = payloads.payload_handler
+          )        
+        WHERE
           call_uuidv4_bin = UNHEX(REPLACE(:call_uuidv4, '-', ''))
-        AND
-          payload_response_account = :account
+        -- AND
+        --   payload_response_account = :account
       `, {
         call_uuidv4: translationData.data.signInPayload || '',
         account: translationData.data.user || ''
       })
 
-      if (matchingSignRequest.length === 1) {
+      if (matchingSignRequest.length === 1 && matchingSignRequest[0].device_id === req.__auth.device.id) {
         const data = translationData.data.values.map(r => {
           const [a, section, key] = r._id.split('.')
           return {
@@ -54,8 +67,7 @@ module.exports = async (req, res) => {
     }
       
     // log({translationData})
-
-    return res.json({
+    const tResponse = {
       meta: {
         language: meta.language,
         version: (new Date()).getTime(),
@@ -63,7 +75,9 @@ module.exports = async (req, res) => {
         valid: Object.keys(translation).length > 0
       },
       translation
-    })
+    }
+    log({translationPreview: req.params.translation_uuid, response: tResponse.meta})
+    return res.json(tResponse)
   } catch (e) {
     res.handleError(e)
   }
