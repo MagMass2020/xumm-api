@@ -2,8 +2,18 @@ const log = require('~src/handler/log')('app:ping')
 const getBadgeCount = require('~api/v1/internal/get-user-badge-count')
 
 module.exports = async (req, res) => {
+  let appVersion = null
+  let appLanguage = null
+
   if (typeof req.body === 'object' && req.body !== null) {
     if (typeof req.body.appLanguage !== 'undefined' || typeof req.body.appVersion !== 'undefined') {
+      appVersion = typeof req.body.appVersion !== 'undefined'
+        ? req.body.appVersion.slice(0, 24)
+        : null
+      appLanguage = typeof req.body.appVersion !== 'undefined'
+        ? req.body.appLanguage.slice(0, 12)
+        : null
+
       try {
         await req.db(`
           UPDATE
@@ -19,12 +29,8 @@ module.exports = async (req, res) => {
             device_accesstoken_bin IS NOT NULL
           LIMIT 1
         `, { 
-          appVersion: typeof req.body.appVersion !== 'undefined'
-            ? req.body.appVersion.slice(0, 24)
-            : null,
-          appLanguage: typeof req.body.appVersion !== 'undefined'
-            ? req.body.appLanguage.slice(0, 12)
-            : null,
+          appVersion,
+          appLanguage,
           deviceUuid: req.__auth.device.uuidv4
         })
       } catch (e) {
@@ -35,6 +41,11 @@ module.exports = async (req, res) => {
 
   res.json({ 
     pong: true,
+    env: {
+      hasPro: false,
+      appVersion,
+      appLanguage
+    },
     tosAndPrivacyPolicyVersion: Number(req.config.TosAndPrivacyPolicyVersion) || 0,
     badge: await getBadgeCount({ userId: req.__auth.user.id }, req.db),
     auth: Object.keys(req.__auth).reduce((a, b) => {

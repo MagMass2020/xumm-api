@@ -372,6 +372,12 @@ module.exports = async (req, res) => {
               }
             }
 
+            if (typeof req.body.signmethod === 'string') {
+              payloadUpdate.payload_signmethod = req.body.signmethod
+            }
+            if (typeof req.body.origintype === 'string') {
+              payloadUpdate.payload_origintype = req.body.origintype
+            }
             if (typeof req.body.dispatched === 'object' && req.body.dispatched !== null) {
               if (typeof req.body.dispatched.to === 'string' && req.body.dispatched.to.match(/^w[s]{1,2}:\/\//)) {
                 payloadUpdate.dispatched_to = req.body.dispatched.to
@@ -456,7 +462,9 @@ module.exports = async (req, res) => {
                 payloads.payload_dispatched_result = :payload_dispatched_result,
                 payloads.payload_dispatched_nodetype = :payload_dispatched_nodetype,
                 payloads.payload_response_account = :response_account,
-                payloads.payload_handler = :payload_handler
+                payloads.payload_handler = :payload_handler,
+                payloads.payload_signmethod = :payload_signmethod,
+                payloads.payload_origintype = :payload_origintype
               WHERE
                 payloads.call_uuidv4_bin = UNHEX(REPLACE(:payload_uuidv4, '-', ''))
               AND
@@ -474,6 +482,8 @@ module.exports = async (req, res) => {
               payload_dispatched_nodetype: payloadUpdate.dispatched_nodetype,
               response_account: payloadUpdate.response_account,
               payload_handler: payloadUpdate.payload_handler,
+              payload_signmethod: payloadUpdate.payload_signmethod,
+              payload_origintype: payloadUpdate.payload_origintype,
             })
 
             if (update.constructor.name !== 'OkPacket' || typeof update.changedRows === 'undefined' || !(update.changedRows > 0)) {
