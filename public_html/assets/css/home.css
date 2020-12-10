@@ -153,3 +153,7 @@ a { color: #3052FF; }
 
 .border-primary { border-color: #3052FF !important; }
 .border-2 { border-width: 2px !important; }
+
+div>iframe#launcher {
+  width: 138px !important;
+}
