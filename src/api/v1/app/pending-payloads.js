@@ -31,6 +31,10 @@ module.exports = async (req, res) => {
         payloads.payload_handler IS NULL
       AND
         payloads.payload_expiration > FROM_UNIXTIME(:now)
+      GROUP BY
+        payloads.call_uuidv4_bin,
+        payloads.call_uuidv4_txt,
+        payloads.payload_id
       ORDER BY
         payloads.payload_id DESC
     `, {
