@@ -14,7 +14,11 @@ module.exports = async (req, res) => {
       LEFT JOIN
         tokens ON (tokens.user_id = users.user_id)
       LEFT JOIN
-        payloads ON (payloads.token_id = tokens.token_id)
+        payloads ON (
+          payloads.token_id = tokens.token_id
+          OR
+          payloads.last_opened_user_id = users.user_id
+        )
       WHERE 
         users.user_id = :user_id
       AND
@@ -27,6 +31,8 @@ module.exports = async (req, res) => {
         payloads.payload_handler IS NULL
       AND
         payloads.payload_expiration > FROM_UNIXTIME(:now)
+      ORDER BY
+        payloads.payload_id DESC
     `, {
       user_id: req.__auth.user.id,
       now: new Date() / 1000

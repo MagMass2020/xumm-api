@@ -1,4 +1,4 @@
-// const log = require('~src/handler/log')('app:payload-api')
+const log = require('~src/handler/log')('app:payload-api')
 const logChild = require('~src/handler/log')('app:payload-api:child')
 const getPayloadData = require('~api/v1/internal/payload-data')
 const formatPayloadData = require('~api/v1/internal/payload-data-formatter')
@@ -66,6 +66,25 @@ module.exports = async (req, res) => {
                 method: req.method
               })
     
+              // Set last user @ Payload
+              req.db(`
+                UPDATE
+                  payloads
+                SET
+                  payloads.last_opened_user_id = :user
+                WHERE
+                  payloads.call_uuidv4_bin = UNHEX(REPLACE(:payload_uuidv4, '-', ''))
+                AND
+                  payloads.payload_resolved IS NULL
+                AND
+                  payloads.payload_expiration > FROM_UNIXTIME(:now)
+                LIMIT 1
+              `, {
+                payload_uuidv4: req.params.payloads__payload_id,
+                user: req.__auth.user.id,
+                now: new Date()
+              })              
+
               response = formatPayloadData(payload, response)
               delete response.meta.custom_identifier
               delete response.meta.custom_blob
