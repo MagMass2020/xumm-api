@@ -71,6 +71,16 @@ module.exports = async function (expressApp) {
     })
   })
 
+  router.get('/redir/:section/:topic/:locale', (req, res, next) => {
+    let url = req.config.baselocation
+    if (typeof req.params.section === 'string' && typeof req.params.topic === 'string') {
+      if (req.params.section === 'faq' && req.params.topic === 'account-signing-password') {
+        url = 'https://support.xumm.app/hc/' + (req.params.locale || 'en') + '/articles/360018166459'   
+      }
+    }
+    return res.redirect(url)
+  })
+
   router.get('/*', (req, res, next) => {
     if (req.url.match(/\.(css|png|jpg|gif|js|ico|svg)$/)) {
       res.setHeader('Cache-Control', 'max-age=2592000, public')
