@@ -1,7 +1,5 @@
 # XUMM platform backend
 
-There's still plenty to do.
-
  - Docs: http://xumm.readme.io
  - Developer Dashboard: https://apps.xumm.dev
 
