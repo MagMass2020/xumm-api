@@ -27,6 +27,8 @@ module.exports = async (uuid, expressApp, invoker) => {
         payloads.payload_multisign,
         payloads.payload_submit,
         payloads.call_uuidv4_txt as _uuid,
+        payloads.payload_origintype,
+        payloads.payload_signmethod,
         payloads.payload_tx_destination as _destination,
         IF (knownaccounts.knownaccount_name IS NULL OR knownaccounts.knownaccount_name = '', payloads.payload_tx_destination, knownaccounts.knownaccount_name) as _resolved_destination,
         IF (payloads.payload_handler IS NULL, 0, 1) as _resolved,
