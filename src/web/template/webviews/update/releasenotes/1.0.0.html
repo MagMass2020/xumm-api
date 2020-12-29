@@ -1,0 +1,48 @@
+<p>
+  🎉 This is the first final (non-beta) XUMM release. This major update contains significant improvements and new features 😎 
+</p>
+
+<h4>Added</h4>
+<ul>
+  <li>All XUMM and XRPL features are now fully tested. There is always room for improvements, but after two years of development, this is version 1.0.0 🚀</li>
+  <li>The XUMM app is now available in <b>46 languages</b>, thanks to community translators 😘</li>
+  <li><b>Added support for (all, even non-XRP) Tangem cards 😎</b> Keep your accounts safe &amp; sign with a plastic card instead of a secret key</li>
+  <li>Respect the "Disallow Incoming XRP" flag when sending XRP to an account. Some IOU (token) issuers enabled this.</li>
+  <li>Added a quick Copy (r-address to clipboard) button next to the Share button in the "Receive" / "Request" panel</li>
+  <li>New Destination Tag confirmation screen when sending to an account with a Destination Tag. A big font and digit spacing will make it easier to check the entered Destination Tag, to prevent deposit mistakes</li>
+  <li>Added explanations &amp; disclaimers during the app onboarding (first start)</li>
+  <li>When scanning a Sign Request from a QR code, when the Sign Request is Closed (instead of Rejected) it now shows up in your Event - Requests list</li>
+</ul>
+ 
+<h4>Improved / Changed</h4>
+<ul>
+  <li>Better account switching (panel), now showing the r-address per account as well</li>
+  <li>When entering the wrong password for an account (to sign), a dialog with explanation is now displayed (instead of an "Invalid authentication" message)</li>
+  <li>When XUMM is started for the first time after changing phones and restoring from a backup (eg. iCloud) without the keychain, XUMM now warns you at first start that for security reasons, you'll have to import your secret keys again on your new phone.</li>
+  <li>Minor user interface &amp; usability improvements all over the place</li>
+  <li>Updated "Passphrase" to "Password" text (English) when referring to the password used for account encryption</li>
+  <li>Improved pasting (from clipboard) / scanning (QR-Code) Destination Tags: stricter checks for valid Destination Tag formatting</li>
+  <li>Better HEX private key import validation</li>
+  <li>Updated (new) extended Terms of Service</li>
+  <li>Improved warnings / education when importing Read Only accounts (please don't import Exchange hot wallets / deposit accounts)</li>
+  <li>Addded warnings / explanation when signing an AccountDelete Sign Request</li>
+</ul>
+
+<h4>Fixed</h4>
+<ul>
+  <li>Fixed a bug that would crash XUMM when running with the "System currency formatting" disabled, when typing an amount (eg. Send transaction flow)</li>
+  <li>When sharing an account address on larger iOS phones, the share dialog would close immediately after opening</li>
+  <li>Fixed a bug that caused XUMM to crash when XUMM was opened while not in airplaine mode, but without a working internet connection</li>
+  <li>On Android, when navigating back (eg. when sending funds) while the keyboard was visible, the keyboard wouldn't close.</li>
+  <li>After adding a contact, all existing views are updated to reflect the contact name (instead of after a new start of the XUMM app)</li>
+  <li>When you issued an IOU and someone else removed a Trust Line to your account, it now shows up as Removed instead of Added in the Events list</li>
+  <li>Fixed scrolling issues for Sign Requests: at times the account selection / Sign button wasn't reachable</li>
+  <li>Fixed an issue where return payments would sometimes excludes prefilling the Destination Tag</li>
+  <li>When sending to accounts where no destination tag was required, a 0 (zero) Destination Tag is no longer used</li>
+  <li>Fixed a discrepancy between the displayed spendable balance on the home screen and on the Send-screens (reserves weren't subtracted)</li>
+</ul>
+
+<h4>For Developers</h4>
+<ul>
+  <li>The XUMM SDK / API now returns the signing security level &amp; request origin flow for Sign Requests</li>
+</ul>
