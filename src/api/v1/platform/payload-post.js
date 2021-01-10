@@ -126,6 +126,19 @@ module.exports = async (req, res) => {
       if (checkTxValid(req.body.txjson)) {
         try {
           const txjson = Object.assign({}, req.body.txjson)
+          if (typeof txjson.Amount === 'object' && txjson.Amount !== null) {
+            if (typeof txjson.Amount.value === 'number') {
+              txjson.Amount.value = String(txjson.Amount.value)
+            }
+            if (typeof txjson.Amount.currency === 'string' && txjson.Amount.currency.toUpperCase() === 'XRP') {
+              if (typeof txjson.Amount.issuer === 'string' && txjson.Amount.issuer === '') {
+                txjson.Amount = txjson.Amount.value
+                if (Number(txjson.Amount) < 1000000) {
+                  txjson.Amount = String(Number(txjson.Amount) * 1000000)
+                }
+              }
+            }
+          }
           if (Object.keys(req.body.txjson).indexOf('TransactionType') > -1 && req.body.txjson.TransactionType.toLowerCase() === 'signin') {
             Object.assign(txjson, {
               SignIn: true
