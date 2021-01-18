@@ -1,0 +1,32 @@
+{% extends "template.html" %}
+
+{% block content %}
+  <div class="container-fluid" style="min-height: 100vh;">
+
+    {% block main %}
+      <!-- Main -->
+      <div class="row h-100" style="min-height: 100vh;">
+        <div class="col-sm-12 my-auto">
+          <div class="d-block mx-auto w-100">
+            <div class="text-center d-block clearfix px-2 pb-4">
+              <img src="/assets/icons/xapps.png" class="mr-2 d-inline-block" style="max-height: 4em; max-width: 4em;">
+              <span class="h3 d-inline-block font-logo" style="position: relative; top: .2em;">xApps</span>
+            </div>
+            <div class="shadow-sm card card-block mb-4">
+              <div class="card-body py-4 text-center bg-light">
+                <h4>404</h4>
+                Not found
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endblock %}
+
+    {% block foot %}
+      <!-- Foot -->
+    {% endblock %}
+
+  </div>
+  
+{% endblock %}

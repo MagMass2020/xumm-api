@@ -61,6 +61,16 @@ module.exports = async function (expressApp) {
     }
   })
 
+  router.get('/detect/xapp\::app([a-z0-9A-Z_\.-]+)?', (req, res, next) => {
+    return res.render('xapps/index.html', {
+      ...req.query,
+      module: 'xapps',
+      mode: req.config.mode,
+      ...(req.params),
+      headers: req.headers
+    })
+  })
+
   router.get('/app/webviews/:type([a-zA-Z0-9-]+)/:language([a-zA-Z_-]+)?', (req, res, next) => {
     return res.render('webviews/' + req.params.type + '/index.html', {
       ...req.query,
