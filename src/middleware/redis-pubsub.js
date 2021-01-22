@@ -22,6 +22,32 @@ module.exports = async function (expressApp, infoLogs) {
   })
 
   expressApp.redis = {
+    del () {
+      return redis.del(...arguments)
+    },
+    get () {
+      return redis.get(...arguments)
+    },
+    set () {
+      return redis.set(...arguments)
+    },
+    async getObject (key) {
+      try {
+        const r = await redis.get(key)
+        if (typeof r === 'string' && r.slice(0, 1) === '{' && r.slice(-1) === '}') {
+          return JSON.parse(r)
+        }
+      } catch (e) {
+        // console.log(e)
+      }
+      return null
+    },
+    setObject (key, value) {
+      return redis.set(key, typeof value === 'object' && value !== null ? JSON.stringify(value) : value)
+    },
+    setForSeconds (key, value, ttlSeconds) {
+      return redis.set(key, typeof value === 'object' && value !== null ? JSON.stringify(value) : value, 'EX', ttlSeconds)
+    },
     publish (channel, data) {
       redis.publish(channel, JSON.stringify(data))
     },
