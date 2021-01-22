@@ -166,6 +166,7 @@ module.exports = async function (expressApp) {
           { method: [ 'get', 'delete' ], path: 'apps/push', module: 'apps-push' },
           { method: 'get', path: 'translation/:translation_uuid([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12})', module: 'translation' },
           { method: 'get', path: 'xapp/shortlist/:account(r[a-zA-Z0-9]{3,})/:version([0-9]{1,}.[0-9]{1,}.[0-9]{1,})/:locale([a-zA-Z_-]{2,})', module: 'xapp-shortlist' },
+          { method: 'get', path: ':type(currencies|rates)/:locale(*)', module: 'currencies-rates' },
         ],
         errorHandler: errorHandler
       },
