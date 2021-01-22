@@ -6,7 +6,11 @@ const uuid = require('uuid/v4')
 const isError = require('iserror')
 
 module.exports = async function (expressApp) {
-  expressApp.use(bodyParser.json())
+  expressApp.use(bodyParser.json({
+    verify: (req, res, buf) => {
+      req.rawBody = buf
+    }
+  }))
   expressApp.use(bodyParser.raw()) // {type: '*/*'}
   
   /**
