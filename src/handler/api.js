@@ -146,9 +146,7 @@ module.exports = async function (expressApp) {
            * wait for device activation callback.
            */
           { 
-            method: 'post',
-            path: 'add-user',
-            disableAuth: true,
+            method: 'post', path: 'add-user', disableAuth: true,
             // module: 'some-alt-file-at-disk'
           },
           { method: 'post', path: 'activate-device', disableAuth: true },
