@@ -169,7 +169,7 @@ module.exports = async (req, res) => {
             Object.assign(a, {
               [b]: {
                 name: matchedCurrency.displayName,
-                code: matchedCurrency.symbol,
+                code: b,
                 symbol: matchedCurrency['symbol-alt-narrow'] || b
               } 
             })
