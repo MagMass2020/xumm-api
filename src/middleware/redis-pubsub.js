@@ -1,4 +1,5 @@
 const log = require('~src/handler/log')('app:redis-pubsub:pub')
+const logGetSet = require('~src/handler/log')('app:redis:getset')
 const logSub = require('~src/handler/log')('app:redis-pubsub:sub')
 const ioredis = require('ioredis')
 
@@ -34,11 +35,12 @@ module.exports = async function (expressApp, infoLogs) {
     async getObject (key) {
       try {
         const r = await redis.get(key)
+        // logGetSet('got', key, r)
         if (typeof r === 'string' && r.slice(0, 1) === '{' && r.slice(-1) === '}') {
           return JSON.parse(r)
         }
       } catch (e) {
-        // console.log(e)
+        logGetSet(e)
       }
       return null
     },

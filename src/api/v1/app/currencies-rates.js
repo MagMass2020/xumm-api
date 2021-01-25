@@ -107,6 +107,7 @@ module.exports = async (req, res) => {
     // await req.redis.del('locale_and_currencies')
 
     const cachedRates = await req.redis.getObject('fx_rates')
+    // log('Got cached rates', cachedRates)
     if (typeof cachedRates === 'object' && cachedRates !== null) {
       return cachedRates
     } else {
@@ -116,6 +117,7 @@ module.exports = async (req, res) => {
         Object.assign(rateData, { __meta: { fetched: new Date() } })
 
         await req.redis.setForSeconds('fx_rates', rateData, 60 /* seconds */ * 15 /* minutes */)
+        // log('Stored fx_rates', rateData)
         // await req.redis.setForSeconds('fx_rates', rateData, 20)
         await req.redis.setObject('fx_rates_backup', rateData)
 
@@ -135,8 +137,8 @@ module.exports = async (req, res) => {
     throw new Error(`Couldn't fetch exchange rates`)
   }
 
-  req.redis.del('fx_rates')
-  req.redis.del('fx_rates_backup')
+  // req.redis.del('fx_rates')
+  // req.redis.del('fx_rates_backup')
 
   try {
     const rates = await getRates()
@@ -159,15 +161,16 @@ module.exports = async (req, res) => {
         currencies.all = Object.keys(localeAndCurrencyData.currencyTranslations[locale])
           .filter(currency => knownCurrencyCodes.indexOf(currency) > -1)
           .filter(currency => typeof localeAndCurrencyData.currencyTranslations[locale][currency] !== 'undefined')
+          .filter(currency => currency.slice(0, 1) !== 'X')
           .reduce((a, b) => {
             const matchedCurrency = localeAndCurrencyData.currencyTranslations[locale][b]
-            if (matchedCurrency.displayName.match(/[0-9]{4}-/)) {
+            if (matchedCurrency.displayName.match(/[0-9]{4}/)) {
               return a
             }
             Object.assign(a, {
               [b]: {
                 name: matchedCurrency.displayName,
-                code: matchedCurrency.symbol,
+                code: b,
                 symbol: matchedCurrency['symbol-alt-narrow'] || b
               } 
             })
