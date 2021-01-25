@@ -161,9 +161,10 @@ module.exports = async (req, res) => {
         currencies.all = Object.keys(localeAndCurrencyData.currencyTranslations[locale])
           .filter(currency => knownCurrencyCodes.indexOf(currency) > -1)
           .filter(currency => typeof localeAndCurrencyData.currencyTranslations[locale][currency] !== 'undefined')
+          .filter(currency => currency.slice(0, 1) !== 'X')
           .reduce((a, b) => {
             const matchedCurrency = localeAndCurrencyData.currencyTranslations[locale][b]
-            if (matchedCurrency.displayName.match(/[0-9]{4}-/)) {
+            if (matchedCurrency.displayName.match(/[0-9]{4}/)) {
               return a
             }
             Object.assign(a, {
