@@ -107,6 +107,7 @@ module.exports = async (req, res) => {
     // await req.redis.del('locale_and_currencies')
 
     const cachedRates = await req.redis.getObject('fx_rates')
+    // log('Got cached rates', cachedRates)
     if (typeof cachedRates === 'object' && cachedRates !== null) {
       return cachedRates
     } else {
@@ -116,6 +117,7 @@ module.exports = async (req, res) => {
         Object.assign(rateData, { __meta: { fetched: new Date() } })
 
         await req.redis.setForSeconds('fx_rates', rateData, 60 /* seconds */ * 15 /* minutes */)
+        // log('Stored fx_rates', rateData)
         // await req.redis.setForSeconds('fx_rates', rateData, 20)
         await req.redis.setObject('fx_rates_backup', rateData)
 
@@ -135,8 +137,8 @@ module.exports = async (req, res) => {
     throw new Error(`Couldn't fetch exchange rates`)
   }
 
-  req.redis.del('fx_rates')
-  req.redis.del('fx_rates_backup')
+  // req.redis.del('fx_rates')
+  // req.redis.del('fx_rates_backup')
 
   try {
     const rates = await getRates()
