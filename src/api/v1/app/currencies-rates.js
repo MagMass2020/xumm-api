@@ -11,10 +11,10 @@ const localeAndCurrencyData = {
 
 const popularCurrencies = [
   'USD', 'EUR', 'JPY', 'GBP', 'AUD', 'CAD', 'CHF',
-  'CNY', 'HKD', 'NZD', 'SEK', 'KRW', 'SGD', 'NOK',
-  'MXN', 'INR', 'RUB', 'ZAR', 'TRY', 'BRL', 'TWD',
-  'DKK', 'PLN', 'THB', 'IDR', 'HUF', 'CZK', 'ILS',
-  'CLP', 'PHP', 'AED', 'COP', 'SAR', 'MYR', 'RON'
+  // 'CNY', 'HKD', 'NZD', 'SEK', 'KRW', 'SGD', 'NOK',
+  // 'MXN', 'INR', 'RUB', 'ZAR', 'TRY', 'BRL', 'TWD',
+  // 'DKK', 'PLN', 'THB', 'IDR', 'HUF', 'CZK', 'ILS',
+  // 'CLP', 'PHP', 'AED', 'COP', 'SAR', 'MYR', 'RON'
 ]
 
 const getLocalesAndCurrencies = async () => {
