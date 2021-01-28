@@ -171,7 +171,7 @@ module.exports = async (req, res) => {
               [b]: {
                 name: matchedCurrency.displayName,
                 code: b,
-                symbol: matchedCurrency['symbol-alt-narrow'] || b
+                symbol: (matchedCurrency['symbol-alt-narrow'] || matchedCurrency['symbol']) || b
               } 
             })
             return a
@@ -226,12 +226,17 @@ module.exports = async (req, res) => {
           }  
         }
 
+        const matchedCurrency = localeAndCurrencyData.currencyTranslations.en[u]
+
         return res.json({
           USD: Math.round(r * 1000000) / 1000000,
           XRP: Math.round(r * xrpusd * 1000000) / 1000000,
           __meta: {
             currency: {
-              en: localeAndCurrencyData.currencyTranslations.en[u].displayName
+              en: matchedCurrency.displayName,
+              code: u,
+              symbol: (matchedCurrency['symbol-alt-narrow'] || matchedCurrency['symbol']) || u
+
             }
           }
         })
