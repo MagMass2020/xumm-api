@@ -85,6 +85,10 @@ module.exports = async function (expressApp) {
    */
   await expressApp.config
 
+  if (typeof expressApp.config.xpringMetricReporting === 'undefined') {
+    return
+  }
+
   hostname = expressApp.config.xpringMetricReporting.hostname
   reportGatewayUrl = expressApp.config.xpringMetricReporting.reportGatewayUrl
   org = expressApp.config.xpringMetricReporting.org
