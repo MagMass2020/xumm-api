@@ -256,7 +256,6 @@ module.exports = async (req, res) => {
               en: matchedCurrency.displayName,
               code: u,
               symbol: (matchedCurrency['symbol-alt-narrow'] || matchedCurrency['symbol']) || u
-
             }
           }
         })
