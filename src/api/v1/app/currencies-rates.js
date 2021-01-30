@@ -198,21 +198,41 @@ module.exports = async (req, res) => {
           xrpusd = Number(cachedXrpUsd)
           log('Got cached XRPUSD rate', typeof cachedXrpUsd, cachedXrpUsd, '»', xrpusd)
         } else {
-          log('Getting live XRPUSD rate')
+          log('Getting On Ledger XRPUSD rate')
           try {
-            const rateCall = await fetch('https://api.cryptowat.ch/markets/kraken/xrpusd/price?apikey=' + req.config.cryptowatch.apiKey)
+            const rateCall = await fetch('https://xrpl.ws', {
+              method: 'POST', body: JSON.stringify({ method: 'account_lines', params: [ { account: 'rXUMMaPpZqPutoRszR29jtC8amWq3APkx' } ]})
+            })
             const rateData = await rateCall.json()
-            xrpusd = Number(rateData.result.price) || 0
+            // log('oracle', {rateData})
+            xrpusd = Number(rateData.result.lines.filter(l => l.currency === 'USD')[0].limit) || 0
+            // log('oracle', {xrpusd})
             if (xrpusd > 0) {
-              log('Got live XRPUSD rate', xrpusd)
-
-              await req.redis.setForSeconds('xrpusd_rate', xrpusd, 60 * 2) // seconds (so two minutes)
+              log('Got <<< live >>> oracle XRPUSD rate', xrpusd)
+              await req.redis.setForSeconds('xrpusd_rate', xrpusd, 60 * 1) // seconds (one minutes)
               req.redis.set('xrpusd_rate_backup', xrpusd)
             } else {
               throw new Error('Invalid USDXRP rate (zero)')
             }
           } catch (e) {
-            log('Error getting XRPUSD rate', e.message)
+            log('Error getting XRPUSD rate from XRPL Oracle', e.message)
+          }
+          if (xrpusd === 0) {
+            log('Getting live XRPUSD rate')
+            try {
+              const rateCall = await fetch('https://api.cryptowat.ch/markets/kraken/xrpusd/price?apikey=' + req.config.cryptowatch.apiKey)
+              const rateData = await rateCall.json()
+              xrpusd = Number(rateData.result.price) || 0
+              if (xrpusd > 0) {
+                log('Got <<< live >>> XRPUSD rate', xrpusd)
+                await req.redis.setForSeconds('xrpusd_rate', xrpusd, 60 * 3) // seconds (three minutes)
+                req.redis.set('xrpusd_rate_backup', xrpusd)
+              } else {
+                throw new Error('Invalid USDXRP rate (zero)')
+              }
+            } catch (e) {
+              log('Error getting XRPUSD rate', e.message)
+            }
           }
         }
 
