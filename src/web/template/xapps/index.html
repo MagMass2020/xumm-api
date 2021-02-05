@@ -17,8 +17,17 @@
                 <h4>404</h4>
                 Not found
               </div>
+              {% if loadedInXumm %}
+                <div class="px-3">
+                  <button onclick="window.ReactNativeWebView.postMessage(JSON.stringify({command:'close'}))" class="btn btn-primary btn-block mb-3">&times; Close</button>
+                </div>
+              {% endif %}
             </div>
           </div>
+          <code>OTT:</code>
+          <pre>{{ otp|dump }}</pre>
+          <code>Headers:</code>
+          <pre>{{ headers|dump(2) }}</pre>
         </div>
       </div>
     {% endblock %}
