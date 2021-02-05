@@ -12,11 +12,17 @@ module.exports = async (req, res) => {
       'xumm.hook': 'Sample Hook'
     }
 
+    const customUrl = {
+      wietse: 'https://thong-clients-brazil-locked.trycloudflare.com/detect/xapp:xumm.tangem'
+    }
+
     const apps = Object.keys(appList).map(k => {
       return {
         title: appList[k],
         icon: 'https://xumm.app/assets/icons/apps/' + k + (k.split('.').length > 1 ? '.png' : '.jpg'),
-        location: baseUrl + envUrl + 'app:' + k
+        location: Object.keys(customUrl).indexOf(k) > -1
+          ? customUrl[k]
+          : baseUrl + envUrl + 'app:' + k
       }
     })
 
