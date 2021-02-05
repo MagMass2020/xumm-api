@@ -7,15 +7,15 @@ module.exports = async (req, res) => {
 
     const appList = {
       'xumm.tangem': 'Tangem Backup',
-      'xumm.multisign': 'Multi Sign',
-      'xumm.escrow': 'Create Escrow',
+      'wietse': 'Wietse Dev',
+      'koen': 'Koen Dev',
       'xumm.hook': 'Sample Hook'
     }
 
     const apps = Object.keys(appList).map(k => {
       return {
         title: appList[k],
-        icon: 'https://xumm.app/assets/icons/apps/' + k + '.png',
+        icon: 'https://xumm.app/assets/icons/apps/' + k + (k.split('.').length > 1 ? '.png' : '.jpg'),
         location: baseUrl + envUrl + 'app:' + k
       }
     })
