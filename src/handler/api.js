@@ -12,6 +12,16 @@ module.exports = async function (expressApp) {
     }
   }))
   expressApp.use(bodyParser.raw()) // {type: '*/*'}
+
+  // Handle fatail express errors
+  expressApp.use((error, req, res, next) => {
+    if (error) {
+      // log(error)
+      errorHandler(error, req, res)
+      return
+    }
+    next()
+  })
   
   /**
    * API Error handler
