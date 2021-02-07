@@ -63,13 +63,12 @@ module.exports = async (req, res) => {
                 child.on('message', msg => {
                   if (typeof msg.debug_log !== 'undefined') logChild.apply(null, Object.values(msg.debug_log))
                   if (typeof msg.pid !== 'undefined') child.send({
-                    pushtoken: n.device_pushtoken,
-                    accountname: n.accountname,
-                    hash: tx.hash,
-                    account: tx.Destination,
-                    type: tx.TransactionType,
-                    // language: n.device_appLanguage,
-                    language: 'PT',
+                    pushtoken: n?.device_pushtoken,
+                    accountname: n?.accountname,
+                    hash: tx?.hash,
+                    account: tx?.Destination,
+                    type: tx?.TransactionType,
+                    language: n?.device_appLanguage,
                     fcmkey: req.config.googleFcmKey
                   })
                 })
