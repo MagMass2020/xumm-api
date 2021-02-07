@@ -197,6 +197,7 @@ module.exports = async function (expressApp) {
           { method: [ 'delete' ], path: 'payload/:payloads__payload_id([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12})', module: 'payload-cancel' },
           { method: [ 'post' ], path: 'payload', module: 'payload-post' },
           { method: [ 'get' ], path: 'xrpl-tx/:txid([0-9a-fA-F]{64})', module: 'xrpl-tx' },
+          { method: [ 'get' ], path: 'xapp/ott/:ott([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12})', module: 'xapp-ott' }
         ],
         errorHandler: errorHandler
       },
