@@ -1,5 +1,15 @@
 const uuid = require('uuid/v4')
-const log = require('~src/handler/log')('app:push-badge')
+const log = require('~src/handler/log')('app:xapp-pre-launch')
+
+const formatData = jsonObj => {
+  const objKeys = Object.keys(jsonObj)
+  ;['style', 'accounttype', 'accountaccess'].forEach(e => {
+    if (objKeys.indexOf(e) > -1) {
+      jsonObj[e] = jsonObj[e].toUpperCase()
+    }
+  })
+  return jsonObj
+}
 
 module.exports = async (req, res) => {
   try {
@@ -12,12 +22,8 @@ module.exports = async (req, res) => {
     if (Array.isArray(app) && app.length > 0 && app[0]?.c > 0) {      
       const data = {
         token: uuid(),
-        ip: req.remoteAddress,
-        ua: Object.keys(req.headers).indexOf('user-agent') > -1
-          ? req.headers['user-agent']
-          : '',
         body: typeof req.body === 'object' && req.body !== null
-          ? JSON.stringify(req.body)
+          ? JSON.stringify(formatData(req.body))
           : '{}'
       }
 
@@ -31,25 +37,19 @@ module.exports = async (req, res) => {
           xapp_ott_bin,
           xapp_identifier,
           xapp_ott_moment,
-          xapp_ott_data,
-          xapp_fetched_ip,
-          xapp_fetched_ua
+          xapp_ott_data
         ) VALUES (
           :ott_txt,
           UNHEX(REPLACE(:ott_txt,'-','')),
           :identifier,
           FROM_UNIXTIME(:moment),
-          :ott_data,
-          :fetched_ip,
-          :fetched_ua
+          :ott_data
         )
       `, {
         ott_txt: data.token,
         identifier: appid,
         moment: new Date() / 1000,
-        ott_data: data.body,
-        fetched_ip: data.ip,
-        fetched_ua: data.ua,
+        ott_data: data.body
       })
 
       if (typeof insertResult === 'object' && insertResult !== null && insertResult.constructor.name === 'OkPacket') {
