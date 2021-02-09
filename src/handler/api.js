@@ -141,7 +141,8 @@ module.exports = async function (expressApp) {
       internal: {
         middleware: 'auth/internal',
         routes: [
-          { method: 'post', path: 'push-tx' }
+          { method: 'post', path: 'push-tx' },
+          { method: 'post', path: 'veriff/:action(*)', module: 'veriff', disableAuth: true }
         ],
         errorHandler: errorHandler
       },
@@ -176,6 +177,7 @@ module.exports = async function (expressApp) {
           { method: [ 'get', 'delete' ], path: 'apps/push', module: 'apps-push' },
           { method: 'get', path: 'translation/:translation_uuid([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12})', module: 'translation' },
           { method: 'get', path: 'xapp/shortlist/:account(r[a-zA-Z0-9]{3,})/:version([0-9]{1,}.[0-9]{1,}.[0-9]{1,})/:locale([a-zA-Z_-]{2,})', module: 'xapp-shortlist' },
+          { method: 'post', path: 'kyc' },
           { method: 'get', path: ':type(currencies|rates)/:locale(*)', module: 'currencies-rates' },
           { method: 'post', path: 'xapp/launch/:appid([a-zA-Z0-9\.-]+)', module: 'xapp-launch' },
         ],
