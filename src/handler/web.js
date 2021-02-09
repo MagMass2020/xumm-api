@@ -61,23 +61,39 @@ module.exports = async function (expressApp) {
     }
   })
 
-  router.get('/detect/xapp\::app([a-z0-9A-Z_\.-]+)?', (req, res, next) => {
-    // TODO: if OTP: verify, redirect, add OTP
-    // » Redirect
+  router.get('/detect/xapp\::app([a-z0-9A-Z_\.-]+)?', async (req, res, next) => {
+    // TODO: turn to separate module, If OTT checks out: redirect, else: nice message + report
     // TODO: Do not serve a 404 if valid xApp launch, probably redirect through xumm.io required
     const headers = Object.keys(req.headers).filter(k => k.match(/^x-xumm-/i)).reduce((a, b) => {
       Object.assign(a, {[b.split('-').slice(2).join('-').toLowerCase()]: req.headers[b]})
       return a
     }, {})
 
-    return res.render('xapps/index.html', {
-      ...req.query,
-      module: 'xapps',
-      mode: req.config.mode,
-      ...(req.params),
-      headers,
-      loadedInXumm: Object.keys(headers).length > 0
-    })
+    const xappFound = await req.db(`
+      SELECT
+        application_xapp_identifier,
+        application_xapp_url
+      FROM applications WHERE application_xapp_identifier = :xapp
+    `, {xapp: req.params.app})
+
+    if (Array.isArray(xappFound) && xappFound.length > 0) {
+      let target = xappFound[0].application_xapp_url
+        .replace(/\{version\}/, '1.1.1')
+        .replace(/\{locale\}/, 'en')
+        .replace(/\{account\}/, 'r....')
+      target += (target.match(/\?/) ? '&' : '?') + 'xAppToken=' + 'xxxxxx'
+      // log(target)
+      res.status(301).redirect(target)
+    } else {
+      return res.render('xapps/index.html', {
+        ...req.query,
+        module: 'xapps',
+        mode: req.config.mode,
+        ...(req.params),
+        headers,
+        loadedInXumm: Object.keys(headers).length > 0
+      })
+    }
   })
 
   router.get('/app/webviews/:type([a-zA-Z0-9-]+)/:language([a-zA-Z_-]+)?', (req, res, next) => {
