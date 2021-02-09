@@ -429,7 +429,7 @@ module.exports = async (req, res) => {
         }
       }
 
-      res.json({ 
+      const responseData = { 
         uuid: uuid,
         next: {
           always: `${req.config.baselocation}/sign/${uuid}`,
@@ -444,9 +444,16 @@ module.exports = async (req, res) => {
           websocket_status: `${req.config.baselocation.replace(/^http/, 'ws')}/sign/${uuid}`
         },
         pushed: pushed
-      })
+      }
 
-      if (pushed) {
+      if (typeof req.body.xappEvent === 'undefined') {
+        res.json(responseData)
+      } else {
+        return responseData
+      }
+
+      // Do not push for real if xApp, xapp-event already triggered xapp-push
+      if (pushed && typeof req.body.xappEvent === 'undefined') {
         log(`# Pushing payload [ ${uuid} ] to [ ${pushToken.length} ] devices`)
 
         const d = await resolveAccount(req.db, tx.json.Destination, {
