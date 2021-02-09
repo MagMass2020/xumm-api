@@ -73,7 +73,7 @@ module.exports = async function (expressApp) {
       SELECT
         application_xapp_identifier,
         application_xapp_url
-      FROM applications WHERE application_xapp_identifier = :xapp
+      FROM applications WHERE application_xapp_identifier = :xapp AND application_xapp_url IS NOT NULL
     `, {xapp: req.params.app})
 
     if (Array.isArray(xappFound) && xappFound.length > 0) {
@@ -82,8 +82,7 @@ module.exports = async function (expressApp) {
         .replace(/\{locale\}/, 'en')
         .replace(/\{account\}/, 'r....')
       target += (target.match(/\?/) ? '&' : '?') + 'xAppToken=' + 'xxxxxx'
-      // log(target)
-      res.status(301).redirect(target)
+      return res.status(301).redirect(target)
     } else {
       return res.render('xapps/index.html', {
         ...req.query,
