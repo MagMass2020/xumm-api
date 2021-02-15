@@ -44,6 +44,7 @@ module.exports = async (req, res, uuid) => {
           WHERE
             token_accesstoken_bin = UNHEX(REPLACE(:token_accesstoken,'-',''))
           AND token_hidden = 0
+          AND tokens.application_id = :application_id
           AND token_expiration >= FROM_UNIXTIME(:token_expiration)
           AND devices.device_disabled IS NULL
           AND devices.device_accesstoken_bin IS NOT NULL
@@ -53,7 +54,8 @@ module.exports = async (req, res, uuid) => {
             devices.device_lastcall DESC
         `, {
           token_accesstoken: req.body.user_token,
-          token_expiration: new Date() / 1000
+          token_expiration: new Date() / 1000,
+          application_id: req?.__auth?.application?.id
         })
 
         if (pushToken.constructor.name === 'Array' && pushToken.length > 0 && pushToken[0].constructor.name === 'RowDataPacket') {
