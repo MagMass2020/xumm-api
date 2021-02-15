@@ -108,8 +108,13 @@ module.exports = async function (expressApp) {
   router.get('/redir/:section/:topic/:locale', (req, res, next) => {
     let url = req.config.baselocation
     if (typeof req.params.section === 'string' && typeof req.params.topic === 'string') {
-      if (req.params.section === 'faq' && req.params.topic === 'account-signing-password') {
-        url = 'https://support.xumm.app/hc/' + (req.params.locale || 'en') + '/articles/360018166459'   
+      if (req.params.section === 'faq') {
+        if (req.params.topic === 'account-signing-password') {
+          url = 'https://support.xumm.app/hc/' + (req.params.locale || 'en') + '/articles/360018166459'   
+        }
+        if (req.params.topic === 'security-hardware') {
+          url = 'https://support.xumm.app/hc/' + (req.params.locale || 'en') + '/articles/360018166039'   
+        }
       }
     }
     return res.redirect(url)
