@@ -3,7 +3,7 @@ const log = require('~src/handler/log')('app:xapp:shortlist')
 
 module.exports = async (req, res) => {
   try {
-    const baseUrl = 'https://xapps.xumm.app/'
+    // const baseUrl = 'https://xapps.xumm.app/'
     // const envUrl = `account:${req.params.account}/version:${req.params.version}/locale:${req.params.locale}/`
 
     const appList = {
@@ -32,8 +32,8 @@ module.exports = async (req, res) => {
 
     return res.json({
       ...(req.params),
-      apps,
-      moreUrl: baseUrl // + envUrl
+      apps
+      // moreUrl: baseUrl // + envUrl
     })
   } catch (e) {
     res.handleError(e)
