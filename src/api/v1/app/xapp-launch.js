@@ -15,9 +15,9 @@ module.exports = async (req, res) => {
   try {
     const appid = req?.params?.appid || ''
 
-    const app = await req.db(`
-      SELECT count(1) c FROM applications WHERE application_xapp_identifier = :appid
-    `, {appid})
+    const app = appid === 'xumm.more'
+      ? [{c:1}]
+      : await req.db(`SELECT count(1) c FROM applications WHERE application_xapp_identifier = :appid`, {appid})
 
     if (Array.isArray(app) && app.length > 0 && app[0]?.c > 0) {      
       const data = {
