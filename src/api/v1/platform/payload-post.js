@@ -363,7 +363,8 @@ module.exports = async (req, res) => {
           payload_submit = :payload_submit,
           payload_return_url_app = :payload_return_url_app,
           payload_return_url_web = :payload_return_url_web,
-          token_id = :token_id
+          token_id = :token_id,
+          payload_xapp_event = :payload_xapp_event
       `
 
       const db = await req.db(payloadInsertQuery, {
@@ -381,7 +382,8 @@ module.exports = async (req, res) => {
         payload_submit: options.submit,
         payload_return_url_app: options.return_url_app,
         payload_return_url_web: options.return_url_web,
-        token_id: pushed ? pushToken[0].token_id : null
+        token_id: pushed ? pushToken[0].token_id : null,
+        payload_xapp_event: typeof req.body.xappEvent !== 'undefined'
       })
 
       if (typeof db !== 'object' || typeof db.insertId !== 'number' || db.insertId < 1) {

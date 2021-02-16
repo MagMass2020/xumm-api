@@ -54,7 +54,8 @@ module.exports = async (uuid, expressApp, invoker) => {
         (UNIX_TIMESTAMP(CURRENT_TIMESTAMP) - UNIX_TIMESTAMP(payloads.payload_expiration)) * -1 as payload_expires_in_seconds,
         payloads_external_meta.meta_string as meta_custom_identifier,
         payloads_external_meta.meta_blob as meta_custom_blob,
-        payloads_external_meta.meta_user_instruction as meta_custom_instruction
+        payloads_external_meta.meta_user_instruction as meta_custom_instruction,
+        payload_xapp_event as meta_is_xapp
       FROM 
         payloads
       JOIN

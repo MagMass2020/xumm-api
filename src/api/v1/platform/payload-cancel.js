@@ -1,4 +1,4 @@
-// const log = require('~src/handler/log')('app:payload:cancel')
+const log = require('~src/handler/log')('app:payload:cancel')
 const getPayload = require('~api/v1/platform/payload-get')
 const updatePushBadge = require('~api/v1/internal/update-push-badge')
 
@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
       reason = 'ALREADY_RESOLVED'
     } else if (potentialPayload.meta.expired) {
       reason = 'ALREADY_EXPIRED'
-    } else if (potentialPayload.meta.app_opened) {
+    } else if (potentialPayload.meta.app_opened && !potentialPayload.meta.is_xapp) {
       reason = 'ALREADY_OPENED'
     } else {
       cancelled = true
