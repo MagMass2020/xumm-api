@@ -78,7 +78,7 @@ module.exports = async (req, res, uuid) => {
 
           Object.assign(pushData.data, {
             category: 'OPENXAPP',
-            xappUrl: 'https://xumm.app/detect/xapp:' + xAppId
+            xappIdentifier: xAppId
           })
 
           delete pushData.user_token

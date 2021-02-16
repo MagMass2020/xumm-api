@@ -27,7 +27,7 @@ module.exports = async (req, res) => {
     Object.assign(req.body, {
       txjson: {
         TransactionType: 'SignIn',
-        xappUrl: 'https://xumm.app/detect/xapp:' + xAppId,
+        xappIdentifier: xAppId,
         xappTitle: (req?.body?.subtitle || req?.body?.data.subtitle) || undefined,
         data: req?.body?.data || {},
         account: req?.body?.data?.account || undefined
