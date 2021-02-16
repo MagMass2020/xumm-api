@@ -72,13 +72,15 @@ module.exports = async (req, res, uuid) => {
           Object.assign(pushData, {
             ...(req.body),
             title: pushToken[0].application_name,
+            xappTitle: pushToken[0].application_name,
             badge: pushToken[0].open_sign_requests,
             sound: 'default'
           })
 
           Object.assign(pushData.data, {
             category: 'OPENXAPP',
-            xappIdentifier: xAppId
+            xappIdentifier: xAppId,
+            xappTitle: pushToken[0].application_name
           })
 
           delete pushData.user_token
