@@ -21,7 +21,7 @@ module.exports = (db, account, config) => {
       data.source = data.source.split(':').reverse()[0]
     }
 
-    if (data.source === '' && data.name === null && data.domain === null) {
+    if ((data.source === '' || data.source === null) && data.name === null && data.domain === null) {
       // No results, nothing to persist
       return false
     } else {
