@@ -38,7 +38,7 @@ module.exports = async (req, res, next) => {
         return res.status(301).redirect(
           xappFound[0].application_xapp_url
             + (xappFound[0].application_xapp_url.match(/\?/) ? '&' : '?')
-            + 'xAppToken=' + 'xxxxxx'
+            + 'xAppToken=' + req?.query?.xAppToken
         )
       } else {
         return res.render('xapps/index.html', {
