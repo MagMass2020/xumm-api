@@ -124,8 +124,8 @@ module.exports = async (req, res, uuid) => {
     }
 
     const response = { pushed }
-    if (typeof req.body.uuid !== 'undefined' && typeof uuid !== undefined && uuid === req.body.uuid) {
-      Object.assign(response, {uuid: req.body.uuid})
+    if (typeof req.body.payload !== 'undefined' && typeof uuid !== undefined && uuid === req.body.payload) {
+      Object.assign(response, {uuid: req.body.payload})
     }
     res.json(response)
   } catch (e) {
