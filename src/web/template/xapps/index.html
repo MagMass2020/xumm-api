@@ -14,8 +14,13 @@
             </div>
             <div class="shadow-sm card card-block mb-4">
               <div class="card-body py-4 text-center bg-light">
-                <h4>404</h4>
-                Not found
+                <h4>
+                  {% if xAppIdentifier %}
+                    <small class="d-block"><code><b>{{ xAppIdentifier }}</b></code></small>
+                  {% endif %}
+                  {{ error.code }}
+                </h4>
+                {{ error.desc }}
               </div>
               {% if loadedInXumm %}
                 <div class="px-3">
@@ -24,10 +29,12 @@
               {% endif %}
             </div>
           </div>
-          {# <code>OTT:</code>
-          <pre>{{ otp|dump }}</pre>
-          <code>Headers:</code>
-          <pre>{{ headers|dump(2) }}</pre> #}
+          {% if 'dev' in mode %}
+            <code>OTT:</code>
+            <pre>{{ ott|dump }}</pre>
+            <code>Headers:</code>
+            <pre>{{ headers|dump(2) }}</pre>
+          {% endif %}
         </div>
       </div>
     {% endblock %}
