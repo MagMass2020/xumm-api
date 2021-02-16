@@ -19,7 +19,7 @@ module.exports = async (req, res, next) => {
   }
 
   if (Array.isArray(xappFound) && xappFound.length > 0) {
-    if (String(xappFound[0].application_xapp_url) !== '') {
+    if (typeof xappFound[0].application_xapp_url === 'string' && xappFound[0].application_xapp_url !== '') {
       return res.status(301).redirect(
         xappFound[0].application_xapp_url
           + (xappFound[0].application_xapp_url.match(/\?/) ? '&' : '?')
