@@ -1,6 +1,8 @@
 const uuid = require('uuid/v4')
 const log = require('~src/handler/log')('app:xapp-pre-launch')
 
+// TODO: RETURN TITLE
+
 const formatData = jsonObj => {
   const objKeys = Object.keys(jsonObj)
   ;['style', 'accounttype', 'accountaccess'].forEach(e => {
@@ -16,10 +18,17 @@ module.exports = async (req, res) => {
     const appid = req?.params?.appid || ''
 
     const app = appid === 'xumm.more'
-      ? [{c:1}]
-      : await req.db(`SELECT count(1) c FROM applications WHERE application_xapp_identifier = :appid`, {appid})
+      ? [{application_name: 'More xApps'}] // TODO: Translation
+      : await req.db(`
+          SELECT
+            application_name
+          FROM
+            applications
+          WHERE
+            application_xapp_identifier = :appid
+        `, {appid})
 
-    if (Array.isArray(app) && app.length > 0 && app[0]?.c > 0) {      
+    if (Array.isArray(app) && app.length > 0) {      
       const data = {
         token: uuid(),
         body: typeof req.body === 'object' && req.body !== null
@@ -55,6 +64,7 @@ module.exports = async (req, res) => {
       if (typeof insertResult === 'object' && insertResult !== null && insertResult.constructor.name === 'OkPacket') {
         return res.json({
           ott: data.token,
+          xappTitle: app[0]?.application_name,
           error: ''
         })
       } else {
