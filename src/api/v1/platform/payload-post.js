@@ -332,6 +332,13 @@ module.exports = async (req, res) => {
         }
       }
 
+      if (typeof req.body.xappEvent !== 'undefined' && !pushed) {
+        // We're in an xApp event post, stop right here
+        // if we couldn't (can't) push this.
+        // REF:#XAPP_BREAK_INVALID_PUSH_TOKEN
+        return
+      }
+
       const payloadMoment = new Date()
       let payloadExpiry = new Date()
       payloadExpiry.setTime(payloadMoment.getTime() + 60 * options.expire * 1000)

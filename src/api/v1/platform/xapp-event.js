@@ -36,14 +36,17 @@ module.exports = async (req, res) => {
     })
 
     const handlerResult = await payloadPostHandler(req, res)
-    log(handlerResult.uuid)
+    // UUID can be null if payload-post breaks if no push token found
+    // REF:#XAPP_BREAK_INVALID_PUSH_TOKEN
+    log(handlerResult?.uuid)
 
     req.body = originalBody
-    Object.assign(req.body, {uuid: handlerResult.uuid})
+    Object.assign(req.body, {uuid: handlerResult?.uuid})
     if (typeof req.body.data !== 'undefined') {
-      Object.assign(req.body.data, {uuid: handlerResult.uuid})
+      Object.assign(req.body.data, {uuid: handlerResult?.uuid})
     }
-    return xappPush(req, res, handlerResult.uuid)
+
+    return xappPush(req, res, handlerResult?.uuid)
   } catch (e) {
     res.handleError(e)
   }
