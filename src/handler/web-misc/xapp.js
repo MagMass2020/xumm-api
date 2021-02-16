@@ -31,7 +31,7 @@ module.exports = async (req, res, next) => {
       // loadedInXumm: Object.keys(headers).length > 0
     }
 
-    log({xappErrorPageParams})
+    // log({xappErrorPageParams})
 
     if (Array.isArray(xappFound) && xappFound.length > 0) {
       if (typeof xappFound[0].application_xapp_url === 'string' && xappFound[0].application_xapp_url !== '') {
