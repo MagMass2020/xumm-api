@@ -5,7 +5,7 @@ const log = require('~src/handler/log')('app:xapp-pre-launch')
 
 const formatData = jsonObj => {
   const objKeys = Object.keys(jsonObj)
-  ;['style', 'accounttype', 'accountaccess'].forEach(e => {
+  ;['style', 'accounttype', 'accountaccess', 'nodetype'].forEach(e => {
     if (objKeys.indexOf(e) > -1) {
       jsonObj[e] = jsonObj[e].toUpperCase()
     }
