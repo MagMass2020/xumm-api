@@ -5,7 +5,7 @@ module.exports = async (req, res, next) => {
     let xummUa = false
 
     if (typeof req.headers['user-agent'] !== 'undefined') {
-      if (req.headers['user-agent'].slice(':')[0] === 'xumm/xapp') {
+      if (req.headers['user-agent'].split(':')[0] === 'xumm/xapp') {
         xummUa = true
       }
     }
