@@ -41,9 +41,9 @@ module.exports = async (req, res) => {
     log(handlerResult?.uuid)
 
     req.body = originalBody
-    Object.assign(req.body, {uuid: handlerResult?.uuid})
+    Object.assign(req.body, {payload: handlerResult?.uuid})
     if (typeof req.body.data !== 'undefined') {
-      Object.assign(req.body.data, {uuid: handlerResult?.uuid})
+      Object.assign(req.body.data, {payload: handlerResult?.uuid})
     }
 
     return xappPush(req, res, handlerResult?.uuid)
