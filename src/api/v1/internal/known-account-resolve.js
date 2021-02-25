@@ -5,6 +5,11 @@ module.exports = (db, account, _options) => {
     retryAfter: typeof _options === 'object' && _options !== null && typeof _options.retryAfter === 'number' ? _options.retryAfter : 0
   }
 
+  if (typeof account === 'undefined' || (typeof account === 'string' && account === '')) {
+    log('Resolving: invalid / empty account string')
+    return Promise.resolve()
+  }
+
   return new Promise(async (resolve, reject) => {
     let retried = false
 
