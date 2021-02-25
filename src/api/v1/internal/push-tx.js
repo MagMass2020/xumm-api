@@ -1,6 +1,7 @@
 const log = require('~src/handler/log')('app:push-tx')
 const logChild = require('~src/handler/log')('app:push-tx:child')
 const { fork } = require('child_process')
+const persistPushResult = require('~api/v1/internal/persist-push-result')
 
 const hashCache = {}
 
@@ -61,16 +62,23 @@ module.exports = async (req, res) => {
                 const child = fork('src/fork/txPushMessage.js')
 
                 child.on('message', msg => {
-                  if (typeof msg.debug_log !== 'undefined') logChild.apply(null, Object.values(msg.debug_log))
-                  if (typeof msg.pid !== 'undefined') child.send({
-                    pushtoken: n?.device_pushtoken,
-                    accountname: n?.accountname,
-                    hash: tx?.hash,
-                    account: tx?.Destination,
-                    type: tx?.TransactionType,
-                    language: n?.device_appLanguage,
-                    fcmkey: req.config.googleFcmKey
-                  })
+                  if (typeof msg.debug_log !== 'undefined') {
+                    logChild.apply(null, Object.values(msg.debug_log))
+                  }
+                  if (typeof msg.push_response !== 'undefined') {
+                    persistPushResult(n?.device_pushtoken, msg.push_response, req.db)
+                  }
+                  if (typeof msg.pid !== 'undefined') {
+                    child.send({
+                      pushtoken: n?.device_pushtoken,
+                      accountname: n?.accountname,
+                      hash: tx?.hash,
+                      account: tx?.Destination,
+                      type: tx?.TransactionType,
+                      language: n?.device_appLanguage,
+                      fcmkey: req.config.googleFcmKey
+                    })
+                  }
                 })
       
                 child.on('exit', code => logChild(`${tx.hash}: Child process exited with code [ ${code} ]`))

@@ -1,6 +1,7 @@
 const log = require('~src/handler/log')('app:payload:post')
 const logChild = require('~src/handler/log')('app:payload:post:child')
 const { fork } = require('child_process')
+const persistPushResult = require('~api/v1/internal/persist-push-result')
 
 module.exports = async (req, res) => {
   const pushInfo = await req.db(`
@@ -38,6 +39,9 @@ module.exports = async (req, res) => {
       child.on('message', msg => {
         if (typeof msg.debug_log !== 'undefined') {
           logChild.apply(null, Object.values(msg.debug_log))
+        }
+        if (typeof msg.push_response !== 'undefined') {
+          persistPushResult(pushToken, msg.push_response, req.db)
         }
         if (typeof msg.pid !== 'undefined') {
           /**

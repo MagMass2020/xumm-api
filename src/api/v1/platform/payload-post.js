@@ -6,6 +6,7 @@ const accountAdvisory = require('~api/v1/internal/advisory')
 const log = require('~src/handler/log')('app:payload:post')
 const logChild = require('~src/handler/log')('app:payload:post:child')
 const { fork } = require('child_process')
+const persistPushResult = require('~api/v1/internal/persist-push-result')
 
 module.exports = async (req, res) => {
   const uuidv4_format = new RegExp(/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)
@@ -468,9 +469,7 @@ module.exports = async (req, res) => {
       if (pushed && typeof req.body.xappEvent === 'undefined') {
         log(`# Pushing payload [ ${uuid} ] to [ ${pushToken.length} ] devices`)
 
-        const d = await resolveAccount(req.db, tx.json.Destination, {
-          retryAfter: 3
-        })
+        const d = await resolveAccount(req.db, tx.json.Destination, { retryAfter: 3 })
         
         pushToken.map(r => {
           return {
@@ -502,6 +501,9 @@ module.exports = async (req, res) => {
           child.on('message', msg => {
             if (typeof msg.debug_log !== 'undefined') {
               logChild.apply(null, Object.values(msg.debug_log))
+            }
+            if (typeof msg.push_response !== 'undefined') {
+              persistPushResult(r.device.pushtoken, msg.push_response, req.db)
             }
             if (typeof msg.pid !== 'undefined') {
               /**

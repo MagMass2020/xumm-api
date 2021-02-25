@@ -1,6 +1,7 @@
 const log = require('~src/handler/log')('app:xapp:push')
 const fetch = require('node-fetch')
 const uuidv4_format = new RegExp(/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)
+const persistPushResult = require('~api/v1/internal/persist-push-result')
 
 module.exports = async (req, res, uuid) => {
   let pushed = false
@@ -103,6 +104,8 @@ module.exports = async (req, res, uuid) => {
               const pushResult = JSON.parse(responseText)
               pushed = typeof pushResult.success !== 'undefined' && pushResult.success > 0
             }
+
+            persistPushResult(pushToken[0].device_pushtoken, responseText, req.db)
             log(`xapp push notification response:`, responseText.slice(0, 500))
           } catch(e) {
             log(e.message)
